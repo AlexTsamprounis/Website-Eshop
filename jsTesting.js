@@ -301,4 +301,29 @@ input.addEventListener("paste", function(e) {
     console.log("Input paste!");
 });
 
+// submit event ----------------------------------------
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    console.log("Form submitted!");
+});
+
+// change event ----------------------------------------
+
+input.addEventListener("change", function(e) {
+    console.log("Input changed!");
+});
+
+// click event ----------------------------------------
+
+input.addEventListener("click", function(e) {
+    console.log("Input clicked!");
+});
+
+// dblclick event ----------------------------------------
+
+input.addEventListener("dblclick", function(e) {
+    console.log("Input double clicked!");
+});
+
 /* -------- End Event Listeners -------- */
