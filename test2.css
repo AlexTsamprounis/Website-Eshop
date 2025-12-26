@@ -401,6 +401,7 @@ form div.comments textarea
 }
 
 /* Όταν το radio είναι επιλεγμένο */
+
 .newsletter-options input[value="yes"]:checked + span
 {
     color: rgb(18, 188, 18);
