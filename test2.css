@@ -49,6 +49,12 @@ body
     font-weight: 300;
 }
 
+section#form
+{
+    margin: 10px 10px;
+    width: auto;
+}
+
 a,
 a:active,
 a:visited,
@@ -441,6 +447,166 @@ form div.action input[type="button"]
 
 /*----------------------RESPONSIVE DESIGN----------------------*/
 
+/* SECTION BEST SELLERS */
+
+section.best-sellers
+{
+    margin: 10px 10px;
+    width: auto;
+}
+
+.best-sellers
+{
+    width: 100%;
+    padding: 10px 0px;
+    height: auto;
+}
+
+.best-sellers-header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.best-sellers__title 
+{
+  margin: 10px 10px;
+  font-family: "OswaldBold", sans-serif;
+  letter-spacing: 0.06em;
+  color: orange;
+}
+
+/* Flex container for product cards */
+
+.products-flex 
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+/* Card sizing: “ομοιόμορφα” blocks */
+
+.product-card 
+{
+  flex: 1 1 260px;       /* μεγαλώνει/μικραίνει, βάση 260px */
+  max-width: 320px;      /* ώστε να μην γίνονται τεράστια */
+  background: #222;
+  border: 1px solid rgba(255, 165, 0, 0.25);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 2px 8px #cd691761;
+}
+
+.product-card__img 
+{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.product-card__body 
+{
+  padding: 12px 12px 14px;
+}
+
+.product-card__name 
+{
+  margin: 0 0 8px;
+  font-family: "OswaldRegular", sans-serif;
+  color: #fff;
+}
+
+.product-card__desc 
+{
+  margin: 0 0 12px;
+  color: #df9b12;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.product-card__colors 
+{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.color-dot 
+{
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* ================== PRODUCTS DROPDOWN BUTTON ================== */
+
+.products-dropdown 
+{
+  position: relative;
+}
+
+.products-dropdown__btn 
+{
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-family: "OswaldBold", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+/* menu hidden by default */
+.products-dropdown__menu 
+{
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  min-width: 160px;
+  background: rgba(30, 30, 30, 0.95);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 165, 0, 0.25);
+  z-index: 999;
+}
+
+.products-dropdown__menu li a 
+{
+  display: block;
+  padding: 8px 12px;
+  color: rgb(232, 228, 220);
+}
+
+.products-dropdown__menu li a:hover 
+{
+  background-color: rgba(255, 165, 0, 0.18);
+  text-decoration: none;
+  color: #fff;
+}
+
+/* show on hover */
+.products-dropdown:hover .products-dropdown__menu 
+{
+  display: block;
+}
+
+
+
+/* img
+{
+    max-width: 100px;
+    height: auto;
+} */
+
+/* SECTION BEST SELLERS END */
+
 @media (max-width: 768px) 
 {
     body > header section.header-container 
@@ -468,6 +634,22 @@ form div.action input[type="button"]
         width: 100%;
         height: auto;
     }
+}
+
+/* Responsive: stack header items */
+
+@media (max-width: 600px) 
+{
+  .best-sellers__header 
+  {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-card 
+  {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 480px) 

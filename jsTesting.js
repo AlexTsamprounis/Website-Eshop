@@ -326,4 +326,17 @@ input.addEventListener("dblclick", function(e) {
     console.log("Input double clicked!");
 });
 
+form.addEventListener("submit", function(e) { // form submit event
+    e.preventDefault(); // prevent actual form submission
+    console.log("Form submitted!");
+});
+
+console.log(e.target.elements);
+console.log(e.target.elements.firsname.value);
+console.log(e.target.elements.lastname.value);
+console.log(e.target.elements.password.value);
+console.log(e.target.elements.male.checked);
+console.log(e.target.elements.female.checked);
+console.log(e.target.elements.agreeTerms.checked);
+
 /* -------- End Event Listeners -------- */
