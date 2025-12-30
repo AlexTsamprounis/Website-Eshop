@@ -340,3 +340,45 @@ console.log(e.target.elements.female.checked);
 console.log(e.target.elements.agreeTerms.checked);
 
 /* -------- End Event Listeners -------- */
+
+/* FORM VALIDATION */
+const myForm = document.getElementById("myForm");
+const firstNameInput = document.getElementById("firstname");
+const lastNameInput = document.getElementById("lastname");
+const passwordInput = document.getElementById("password");
+const maleInput = document.getElementById("male");
+const femaleInput = document.getElementById("female");
+const agreeTermsInput = document.getElementById("agreeTerms");
+const errorMessages = document.getElementById("errorMessages");
+
+myForm.addEventListener("submit", function(e) 
+{
+    e.preventDefault();
+    errorMessages.innerHTML = "";
+    let errors = [];    
+    if (firstNameInput.value === "") {
+        errors.push("First name is required");
+    }
+    if (lastNameInput.value === "") {
+        errors.push("Last name is required");
+    }
+    if (passwordInput.value === "") {
+        errors.push("Password is required");
+    }
+    if (!maleInput.checked && !femaleInput.checked) {
+        errors.push("Gender is required");
+    }
+    if (!agreeTermsInput.checked) {
+        errors.push("You must agree to the terms and conditions");
+    }
+    if (errors.length > 0) {
+        errors.forEach(error => {
+            const errorMessage = document.createElement("p");
+            errorMessage.textContent = error;
+            errorMessages.appendChild(errorMessage);
+        });
+    } else {
+        myForm.submit();
+    }
+});
+/* END FORM VALIDATION */
