@@ -406,6 +406,22 @@ form div.comments textarea
     max-height: 110px; /* Μέγιστο Ύψος*/
 }
 
+form div.text-danger
+{
+    color: #000000;
+    text-decoration: underline red;
+    font-size: 13px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+
+form div.char-remaining
+{
+    font-size: 13px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+
 /* Όταν το radio είναι επιλεγμένο */
 
 .newsletter-options input[value="yes"]:checked + span
