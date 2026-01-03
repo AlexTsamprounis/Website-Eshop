@@ -1,12 +1,14 @@
 /* Textarea character counter */
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() 
+{
     
     const input = document.querySelector("#formComments");
     const remainingCharsDisplay = document.querySelector("#remainingChars");
     const maxChars = 400;
 
-    input.addEventListener("input", function() {
+    input.addEventListener("input", function() 
+    {
         const remainingChars = maxChars - input.value.length;
         remainingCharsDisplay.textContent = remainingChars;
 
