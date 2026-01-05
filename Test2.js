@@ -19,5 +19,15 @@ document.addEventListener("DOMContentLoaded", function()
 
 /* Form validation */
 
-// firstname - lastname - password - male - female - agreeTerms
+const form = document.querySelector("#form form");
+
+if(!form) {return;}
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+});
+
+
+
 

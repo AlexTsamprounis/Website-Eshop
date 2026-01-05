@@ -93,7 +93,7 @@ a:focus
 }
 
 button,
-input[type="button"]
+input[type="submit"]
 {
     background-color: #f36500;
     color: black;
@@ -110,13 +110,13 @@ a:hover
 }
 
 
-div.action input[type="button"]
+div.action input[type="submit"]
 {
     color: orange;
 }
 
 button:hover,
-input[type="button"]:hover
+input[type="submit"]:hover
 {
     background-color: rgb(182, 25, 16);
     color: rgb(171, 14, 14);
@@ -363,7 +363,7 @@ form input,
 form select,
 form textarea,
 form label,
-form input[type="button"]
+form input[type="submit"]
 {
     width: 100%;
     padding: 8px;
@@ -380,6 +380,7 @@ section form fieldset.introduction
     margin: 9px 1px;
 }
 /*----------------------FORM ENDS----------------------*/ 
+
 
 /* ===== NEWSLETTER LAYOUT START ===== */
 
@@ -466,7 +467,7 @@ form div.action
     margin: 5px 0px;
 }
 
-form div.action input[type="button"]
+form div.action input[type="submit"]
 {
     width: 70%;
     font-family: "OswaldBold", sans-serif;
@@ -865,7 +866,40 @@ section.best-sellers
 
 /* SECONDARY SECTION END */
 
+/* ============= FORM VALIDATION UI AND UX START ============= */
 
+.form-error
+{
+    color: red;
+    font-size: 13px;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    text-decoration: underline;
+
+}
+
+.input-error 
+{
+  border-color: #b10000 !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(177, 0, 0, 0.15);
+}
+
+.form-success 
+{
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(0, 128, 0, 0.12);
+  border: 1px solid rgba(0, 200, 0, 0.25);
+  color: #e8e4dc;
+}
+
+
+/* ============ FORM VALIDATION UI AND UX END ============= */
+
+
+/* ----------------------RESPONSIVE DESIGN----------------------*/
 
 /* responsive */
 
