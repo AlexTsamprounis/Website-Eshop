@@ -17,4 +17,7 @@ document.addEventListener("DOMContentLoaded", function()
     remainingCharsDisplay.innerHTML = maxChars;
 });
 
-/* Event listeners for form and input elements */
+/* Form validation */
+
+// firstname - lastname - password - male - female - agreeTerms
+
