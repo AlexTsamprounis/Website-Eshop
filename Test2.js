@@ -1,8 +1,8 @@
-
 document.addEventListener("DOMContentLoaded", function () {
-   console.log("Test2.js loaded");
+  console.log("Test2.js loaded");
+
   // =========================
-  // 1) Textarea character counter
+  // 1) Textarea character counter (μόνο αν υπάρχει στο register)
   // =========================
   const commentsInput = document.querySelector("#formComments");
   const remainingCharsDisplay = document.querySelector("#remainingChars");
@@ -18,24 +18,32 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // =========================
-  // 2) Form validation 
+  // 2) Form validation — ΜΟΝΟ για register form
   // =========================
-  const form = document.querySelector("#form form");
-  if (!form) return; // σημαντικό: στις άλλες σελίδες δεν υπάρχει φόρμα
+
+  // ✅ Κλειδί: Αν ΔΕΝ υπάρχουν τα πεδία του register, ΔΕΝ πειράζουμε κανένα submit (payment/cart κλπ)
+  const firstname = document.querySelector("#firstname");
+  const lastname  = document.querySelector("#lastname");
+  const gender    = document.querySelector("#formGender");
+  const email     = document.querySelector("#emailAdress");
+  const password  = document.querySelector("#formPassword");
+  const agreeTerms = document.querySelector("#agreeTerms");
+
+  // Αν δεν είναι register σελίδα/φόρμα → βγες
+  if (!firstname || !lastname || !gender || !email || !password || !agreeTerms) {
+    return;
+  }
+
+  // Τώρα ξέρουμε 100% ότι είμαστε στο register form
+  const form = firstname.closest("form");
+  if (!form) return;
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     clearErrors(form);
 
-    const firstname = document.querySelector("#firstname");
-    const lastname = document.querySelector("#lastname");
-    const gender = document.querySelector("#formGender");
-    const email = document.querySelector("#emailAdress");
-    const password = document.querySelector("#formPassword");
-    const agreeTerms = document.querySelector("#agreeTerms");
     const newsletterChecked = document.querySelector('input[name="formNewsletter"]:checked');
-
     let ok = true;
 
     // Firstname
@@ -79,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ok = false;
     }
 
-    // Newsletter radio (YES/NO) - αν το θες υποχρεωτικό, άστο έτσι
+    // Newsletter radio
     if (!newsletterChecked) {
       const newsletterFieldset = document.querySelector("fieldset.newsletter");
       if (newsletterFieldset) {
@@ -96,9 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!ok) return;
 
-    // Success
-    showSuccess(form, "✅ Επιτυχής υποβολή! Ευχαριστούμε 🙂");
-    form.reset();
+    // ✅ submit κανονικά προς PHP
+    form.submit();
 
     // reset counter
     if (commentsInput && remainingCharsDisplay) {
@@ -116,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
     err.className = "form-error";
     err.textContent = message;
 
-    // checkbox: πιο σταθερό να μπει μέσα στο parent
     if (inputEl.type === "checkbox") {
       inputEl.parentElement.appendChild(err);
     } else {
@@ -137,18 +143,38 @@ document.addEventListener("DOMContentLoaded", function () {
     root.querySelectorAll(".form-success").forEach((el) => el.remove());
   }
 
-  function showSuccess(root, message) {
-    const box = document.createElement("div");
-    box.className = "form-success";
-    box.textContent = message;
-    root.appendChild(box);
-  }
-
   function isValidEmail(v) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   }
 });
 
+// ===== HERO SLIDER =====
+let heroIndex = 0;
 
+function heroSlides() {
+  return document.querySelectorAll('.hero-slide');
+}
+function heroDots() {
+  return document.querySelectorAll('.hero-dots .dot');
+}
 
+function heroGo(i){
+  const slides = heroSlides();
+  const dots = heroDots();
+  if(!slides.length) return;
 
+  heroIndex = (i + slides.length) % slides.length;
+
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === heroIndex));
+  dots.forEach((d, idx) => d.classList.toggle('active', idx === heroIndex));
+}
+
+function heroNext(){ heroGo(heroIndex + 1); }
+function heroPrev(){ heroGo(heroIndex - 1); }
+
+// autoplay
+document.addEventListener('DOMContentLoaded', () => {
+  if (heroSlides().length) {
+    setInterval(() => heroNext(), 6000);
+  }
+});
