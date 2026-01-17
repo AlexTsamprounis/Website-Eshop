@@ -1,3 +1,3 @@
 # Website-Eshop
 
-http://localhost/Website-Eshop/TEST2.php 
+http://localhost/Website-Eshop-main/TEST2.php 
