@@ -1112,21 +1112,28 @@ section.best-sellers
   box-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
-.hero-slide{
-  position:absolute;
-  inset:0;
-  background-size: cover;
-  background-position:center;
-  opacity:0;
-  transform: scale(1.02);
-  transition: opacity .6s ease, transform .8s ease;
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity .6s ease, transform .8s ease;
+    
+    /* Απενεργοποιούμε τα κλικ στα ανενεργά slides */
+    pointer-events: none; 
+    z-index: 1; 
 }
 
-.hero-slide.active{
-  opacity:1;
-  transform: scale(1);
+.hero-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    
+    /* Ενεργοποιούμε τα κλικ ΜΟΝΟ εδώ */
+    pointer-events: auto; 
+    z-index: 5; 
 }
-
 .hero-overlay{
   position:absolute;
   inset:0;
@@ -1173,31 +1180,37 @@ section.best-sellers
   border: 1px solid rgba(255,255,255,.25);
 }
 
-.hero-nav{
-  position:absolute;
-  top:50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border:none;
-  cursor:pointer;
-  background: rgba(0,0,0,.45);
-  color: #fff;
-  font-size: 28px;
-  line-height: 44px;
+.hero-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: rgba(0,0,0,.45);
+    color: #fff;
+    font-size: 28px;
+    line-height: 44px;
+    
+    /* Υψηλό z-index για να μην τα καλύπτει τίποτα */
+    z-index: 20; 
 }
 
 .hero-nav.prev{ left: 12px; }
 .hero-nav.next{ right: 12px; }
 
-.hero-dots{
-  position:absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  display:flex;
-  gap:8px;
+.hero-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    
+    /* Υψηλό z-index */
+    z-index: 20; 
 }
 
 .hero-dots .dot{

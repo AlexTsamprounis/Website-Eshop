@@ -50,19 +50,24 @@ if ($email === '' || $password === '') {
     die('Provide email and password.');
 }
 
-$stmt = mysqli_prepare($conn, "SELECT id, firstname, password_hash FROM users WHERE email = ? LIMIT 1");
+// Προσθέτουμε το lastname στο SELECT
+$stmt = mysqli_prepare($conn, "SELECT id, firstname, lastname, password_hash FROM users WHERE email = ? LIMIT 1");
 mysqli_stmt_bind_param($stmt, 's', $email);
 mysqli_stmt_execute($stmt);
-mysqli_stmt_bind_result($stmt, $id, $firstname, $password_hash);
-if (mysqli_stmt_fetch($stmt)) {
-        if (password_verify($password, $password_hash)) {
-                $_SESSION['user'] = ['id' => $id, 'firstname' => $firstname, 'email' => $email];
-                header('Location: cart.php');
-                exit;
-            }
-        }
 
-        // Αν ο κωδικός είναι λάθος ή το email δεν βρέθηκε, ο κώδικας φτάνει εδώ:
-        $_SESSION['flash'] = "Λάθος email ή κωδικός πρόσβασης.";
-        header('Location: login.php');
-                exit;
+// Προσθέτουμε τη μεταβλητή $lastname στο bind_result
+mysqli_stmt_bind_result($stmt, $id, $firstname, $lastname, $password_hash);
+
+if (mysqli_stmt_fetch($stmt)) {
+    if (password_verify($password, $password_hash)) {
+        // Αποθηκεύουμε ΚΑΙ το lastname στο Session
+        $_SESSION['user'] = [
+            'id' => $id, 
+            'firstname' => $firstname, 
+            'lastname' => $lastname, 
+            'email' => $email
+        ];
+        header('Location: cart.php');
+        exit;
+    }
+}

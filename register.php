@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user'] = [
             'id' => mysqli_insert_id($conn),
             'firstname' => $firstname,
+            'lastname' => $lastname,
             'email' => $email
         ];
         header("Location: TEST2.php?registration=success");

@@ -42,7 +42,7 @@ require_once __DIR__ . '/includes/header.php';
     <h1 style="color:#ff9d00;">My Profile</h1>
 
     <div style="background:#1f1f1f; padding:20px; border-radius:12px; margin-top:20px; color:white;">
-        <p><strong>Όνομα:</strong> <?php echo htmlspecialchars($_SESSION['user']['firstname'] . " " . $_SESSION['user']['lastname']); ?></p>
+        <p><strong>Όνομα:</strong> <?php echo htmlspecialchars(($_SESSION['user']['firstname'] ?? '') . " " . ($_SESSION['user']['lastname'] ?? '')); ?></p>
         <p><strong>Email:</strong> <?php echo htmlspecialchars($_SESSION['user']['email']); ?></p>
     </div>
 
