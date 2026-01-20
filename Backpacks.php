@@ -37,18 +37,11 @@ require_once __DIR__ . '/includes/header.php';
                         <p class="product-card__desc"><?php echo htmlspecialchars($desc); ?></p>
                         <p class="product-card__price"><?php echo number_format($price, 2); ?> €</p>
 
-                        <?php if (!empty($_SESSION['user'])): ?>
-                            <button
-                                onclick='addToCart(<?php echo json_encode($name); ?>, <?php echo $price; ?>)'
+                        <button onclick='addToCart(<?php echo json_encode($name); ?>, <?php echo $price; ?>)'
                                 class="auth-button"
-                                style="width:100%; background:#ff9d00; border:none; cursor:pointer; padding:10px; margin-bottom:10px;">
-                                Add to Cart
-                            </button>
-                        <?php else: ?>
-                            <p style="text-align:center; font-size:13px; color:#777;">
-                                <a href="login.php" style="color:#ff9d00; font-weight:bold;">Login</a> για αγορά
-                            </p>
-                        <?php endif; ?>
+                                style="width:100%; cursor:pointer; margin-bottom:10px; background-color:#ff9d00; border:none; padding:10px;">
+                            Add to Cart
+                        </button>
                     </div>
                 </article>
                 <?php

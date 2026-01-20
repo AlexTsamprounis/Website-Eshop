@@ -33,7 +33,7 @@ require_once __DIR__ . '/includes/header.php';
         </fieldset>
 
         <fieldset style="margin-top:20px;">
-            <legend>Στοιχεία Κάρτας (Demo)</legend>
+            <legend>Στοιχεία Κάρτας </legend>
             <input type="text" name="card_name" placeholder="Όνομα στην Κάρτα" required>
             <input type="text" name="card_number" placeholder="Αριθμός Κάρτας (16 ψηφία)" maxlength="16" required>
 
@@ -41,10 +41,6 @@ require_once __DIR__ . '/includes/header.php';
                 <input type="text" id="card_expiry" name="card_expiry" placeholder="MM/YY" maxlength="5" required>
                 <input type="text" id="card_cvv" name="card_cvv" placeholder="CVV (3 ψηφία)" maxlength="3" required>
             </div>
-
-            <p style="margin-top:10px; color:#999; font-size:12px;">
-                * Demo form. Τα στοιχεία κάρτας δεν αποθηκεύονται στη βάση.
-            </p>
         </fieldset>
 
         <div class="action">

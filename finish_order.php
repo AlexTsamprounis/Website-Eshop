@@ -25,7 +25,9 @@ $full_name = trim($_POST['full_name'] ?? '');
 $address   = trim($_POST['address'] ?? '');
 $city      = trim($_POST['city'] ?? '');
 $zip       = trim($_POST['zip'] ?? '');
-
+$card_name   = trim($_POST['card_name'] ?? '');
+$card_number = trim($_POST['card_number'] ?? '');
+$card_expiry = trim($_POST['card_expiry'] ?? '');
 // 4) Basic validation
 if ($total <= 0 || $items === '' || $items === '[]') {
     $_SESSION['flash'] = "Το καλάθι είναι άδειο ή τα δεδομένα παραγγελίας είναι άκυρα.";
@@ -41,8 +43,9 @@ if ($full_name === '' || $address === '' || $city === '' || !preg_match('/^\d{5}
 
 // 5) Insert: ΑΠΟΘΗΚΕΥΟΥΜΕ shipping στοιχεία + items + total
 //    Δεν αποθηκεύουμε κάρτες (παρότι υπάρχουν πεδία).
-$sql = "INSERT INTO orders (user_email, total_price, order_items, full_name, shipping_address, city, zip_code)
-        VALUES (?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO orders (user_email, total_price, order_items, full_name, shipping_address, city, zip_code, card_name, card_number, card_expiry)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 
 $stmt = mysqli_prepare($conn, $sql);
 if (!$stmt) {
@@ -53,14 +56,17 @@ if (!$stmt) {
 
 mysqli_stmt_bind_param(
     $stmt,
-    "sdsssss",
+    "sdssssssss",
     $user_email,
     $total,
     $items,
     $full_name,
     $address,
     $city,
-    $zip
+    $zip,
+    $card_name,
+    $card_number,
+    $card_expiry
 );
 
 if (!mysqli_stmt_execute($stmt)) {
