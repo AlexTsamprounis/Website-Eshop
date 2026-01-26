@@ -17,7 +17,7 @@ require_once __DIR__ . '/includes/header.php';
       <p>−20% σε επιλεγμένες δερμάτινες τσάντες</p>
       <div class="hero-actions">
         <a class="hero-btn" href="#best-sellers">Δες Best Sellers</a>
-        <a class="hero-btn secondary" href="#form">Γίνε μέλος</a>
+        <a class="hero-btn secondary" href="#form">Γινε μελος</a>
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@ require_once __DIR__ . '/includes/header.php';
   </div>
   <div class="welcome-right">
     <a class="welcome-cta" href="#best-sellers">Αγόρασε τώρα</a>
-    <a class="welcome-cta secondary" href="#form">Εγγραφή</a>
+    <a class="welcome-cta secondary" href="#" data-open="register">Εγγραφή</a>
   </div>
 </section>
 
@@ -162,28 +162,35 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<section id="form">
-    <form method="post" action="register.php">
+        <!-- REGISTER MODAL -->
+<div id="registerModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-label="Register form">
+        <button type="button" class="modal-close" id="btnCloseRegister" aria-label="Close">×</button>
+
+        <h2 class="modal-title">Register</h2>
+
+        <!-- ✅ Το ίδιο form που είχες, απλά τώρα είναι μέσα στο modal -->
+        <form method="post" action="register.php">
         <fieldset class="introduction" id="introduction">
             <legend class="personal-data">Personal Details</legend>
 
             <div class="form-group firstname">
-                <label for="firstname"><span style="color: red;">*</span> First Name:</label>
-                <input value="" type="text" name="firstname" id="firstname" placeholder="John" required>
+            <label for="firstname"><span style="color: red;">*</span> First Name:</label>
+            <input value="" type="text" name="firstname" id="firstname" placeholder="John" required>
             </div>
 
             <div class="form-group lastname">
-                <label for="lastname"><span style="color: red;">*</span> Last Name:</label>
-                <input type="text" name="lastname" id="lastname" placeholder="Doe" required>
+            <label for="lastname"><span style="color: red;">*</span> Last Name:</label>
+            <input type="text" name="lastname" id="lastname" placeholder="Doe" required>
             </div>
         </fieldset>
 
         <div class="form-group gender">
             <label for="formGender">* Gender:</label>
             <select id="formGender" name="formGender" required>
-                <option value="null" selected>Choose your gender !</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+            <option value="null" selected>Choose your gender !</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
             </select>
         </div>
 
@@ -199,29 +206,29 @@ require_once __DIR__ . '/includes/header.php';
 
         <div class="form-group comments">
             <div>
-                <label for="formComments">* Comments</label>
+            <label for="formComments">* Comments</label>
             </div>
             <textarea name="formComments" maxlength="400" id="formComments" placeholder="Add your comments here !!"></textarea>
             <div class="text-danger" id="charNum">
-                Your comments must be no more than 400 characters.
+            Your comments must be no more than 400 characters.
             </div>
             <div class="char-remaining">
-                Remaining characters: <strong id="remainingChars"></strong>
+            Remaining characters: <strong id="remainingChars"></strong>
             </div>
         </div>
 
         <fieldset class="form-group newsletter">
             <legend>Please sign up to our newsletter</legend>
             <p class="newsletter-text">
-                <span style="color: rgb(255, 136, 0);">*</span>Sign up to our newsletter !
+            <span style="color: rgb(255, 136, 0);">*</span>Sign up to our newsletter !
             </p>
             <div class="newsletter-options">
-                <label>
-                    <input type="radio" name="formNewsletter" value="yes"> <span>YES</span>
-                </label>
-                <label>
-                    <input type="radio" name="formNewsletter" value="no"><span>NO</span>
-                </label>
+            <label>
+                <input type="radio" name="formNewsletter" value="yes"> <span>YES</span>
+            </label>
+            <label>
+                <input type="radio" name="formNewsletter" value="no"><span>NO</span>
+            </label>
             </div>
         </fieldset>
 
@@ -233,8 +240,9 @@ require_once __DIR__ . '/includes/header.php';
         <div class="form-group action">
             <input type="submit" value="Register" name="formAction" id="formAction">
         </div>
-    </form>
-</section>
+        </form>
+    </div>
+</div>
 
 <section id="main-section">
     <div class="container">
@@ -273,27 +281,6 @@ require_once __DIR__ . '/includes/header.php';
         <h2>A.T COLLECTION</h2>
 
         <div class="secondary-grid">
-            <div class="secondary-left">
-                <div class="svg">
-                    <!-- (Κρατάμε το SVG όπως είναι) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.573 511.573" width="320" height="320" role="img" aria-labelledby="t d">
-                        <title id="t">AT collection — leather logo (white bg)</title>
-                        <rect x="0" y="0" width="100%" height="100%" fill="#ffffff"></rect>
-                        <style>
-                            .hide path { fill:none; stroke:#111; stroke-width:12; stroke-linejoin:round; stroke-linecap:round;}
-                            .logoAT, .logoCollection { paint-order: stroke fill; stroke:#111; stroke-width:2;}
-                            .logoAT { font-family: serif; font-weight:700; letter-spacing:-3px; fill:#111;}
-                            .logoCollection { font-family: cursive; fill:#111;}
-                        </style>
-                        <g class="hide" transform="translate(1 1)">
-                            <path d="M465.56,158.147c2.56-1.707,3.413-5.12,2.56-7.68v-0.853C462.147,120.6,445.933,95,422.04,77.08 c-2.56-1.707-5.12-2.56-8.533-0.853c-29.867,10.24-53.76,10.24-72.533-0.853c-29.867-17.92-34.987-60.587-34.987-60.587 c0-3.413-2.56-5.973-5.973-6.827c-29.013-11.947-61.44-11.947-91.307,0c-2.56,0.853-5.12,3.413-5.12,6.827 c0,0-5.12,41.813-34.987,60.587c-18.773,11.947-43.52,11.947-73.387,0.853c-2.56-1.707-5.12-0.853-7.68,0.853 C63.64,95,47.427,120.6,41.453,149.613v0.853c0,2.56,0.853,5.973,2.56,7.68c25.6,25.6,40.107,64,40.107,104.96 c0,40.96-14.507,79.36-40.107,104.96c-2.56,1.707-3.413,5.12-2.56,7.68v0.853c5.973,29.013,22.187,54.613,46.08,72.533 c2.56,1.707,5.12,2.56,7.68,1.707c5.12-1.707,112.64-38.4,151.893,54.613c0.853,3.413,4.267,5.12,7.68,5.12 s6.827-1.707,7.68-5.973c40.107-92.16,147.627-56.32,151.893-54.613c2.56,1.707,5.12,0.853,7.68-0.853 c23.893-17.92,40.107-43.52,46.08-72.533v-0.853c0-2.56-0.853-5.973-2.56-7.68C412.653,315.16,412.653,211.053,465.56,158.147z"></path>
-                        </g>
-                        <text x="50%" y="40.5%" text-anchor="middle" class="logoAT" font-size="130">AT</text>
-                        <text x="50%" y="60.5%" text-anchor="middle" class="logoCollection" font-size="92">collection</text>
-                    </svg>
-                </div>
-            </div>
-
             <aside class="secondary-right">
                 <h3 class="contact-title">Επικοινωνία</h3>
                 <ul class="contact-list">
@@ -307,7 +294,7 @@ require_once __DIR__ . '/includes/header.php';
 
                 <div class="contact-actions">
                     <a class="contact-cta" href="mailto:at.collection@hotmail.com">Email</a>
-                    <a class="contact-cta" href="#form">Register / Form</a>
+                    <a class="contact-cta" href="#" data-open="register">Register / Form</a>
                 </div>
             </aside>
         </div>

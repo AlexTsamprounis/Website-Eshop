@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 2) Form validation — ΜΟΝΟ για register form
   // =========================
 
-  // ✅ Κλειδί: Αν ΔΕΝ υπάρχουν τα πεδία του register, ΔΕΝ πειράζουμε κανένα submit (payment/cart κλπ)
+  // Κλειδί: Αν ΔΕΝ υπάρχουν τα πεδία του register, ΔΕΝ πειράζουμε κανένα submit (payment/cart κλπ)
   const firstname = document.querySelector("#firstname");
   const lastname  = document.querySelector("#lastname");
   const gender    = document.querySelector("#formGender");
@@ -176,5 +176,54 @@ function heroPrev(){ heroGo(heroIndex - 1); }
 document.addEventListener('DOMContentLoaded', () => {
   if (heroSlides().length) {
     setInterval(() => heroNext(), 6000);
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("registerModal");
+  const closeBtn = document.getElementById("btnCloseRegister");
+
+  // Θα το δέσουμε με κουμπιά/links που έχουν data-open="register"
+  const openers = document.querySelectorAll('[data-open="register"]');
+
+  if (!modal || !closeBtn) return;
+
+  function openRegister() {
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+  }
+
+  function closeRegister() {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+  }
+
+  openers.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openRegister();
+    });
+  });
+
+  closeBtn.addEventListener("click", closeRegister);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeRegister();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeRegister();
+  });
+
+  // optional: αν έρθεις από login με ?register=1 ανοίγει αυτόματα
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("register") === "1") {
+    openRegister();
+
+    // Kαθαρίζει το URL για να μην ανοίγει στο refresh
+    const url = new URL(window.location.href);
+    url.searchParams.delete("register");
+    window.history.replaceState({}, document.title, url.pathname + url.search + url.hash);
   }
 });
