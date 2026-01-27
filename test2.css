@@ -307,9 +307,9 @@ header .headline
 }
 .auth-button:hover
 {
-    color:red;
+    color:black;
     font-size: 21px;
-    text-decoration: underline;
+    text-decoration: none;
     
 }
 
@@ -1024,6 +1024,25 @@ section.best-sellers
 
 
 
+<<<<<<< Updated upstream
+
+=======
+button.modal-close:hover {
+  background: rgba(211, 211, 211, 0.377);
+  color: inherit;
+  box-shadow: none;
+  transform: none;
+  text-decoration: none;
+  opacity: 2;
+  cursor: pointer;
+}
+>>>>>>> Stashed changes
+
+
+/* ===== END REGISTER MODAL ===== */ /*ΠΕΡΙΒΑΛΛΟΝ PHP*/
+
+
+
 
 
 /* Στοχεύουμε μόνο τη σελίδα Shopping Bags */
@@ -1032,8 +1051,8 @@ section.best-sellers
 }
 
 #category.best-sellers .auth-button:hover {
-    color: #ff0000 !important; /* Κόκκινο όταν πάει το ποντίκι πάνω */
-    text-decoration: underline !important;
+    color: black !important; /* Μαύρο όταν πάει το ποντίκι πάνω */
+    text-decoration: none !important;
 }
 
 /* ===== HERO SLIDER ===== */
@@ -1294,6 +1313,12 @@ div a.welcome-cta{
   border-radius: 10px;
 }
 
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
 /* ----------------------RESPONSIVE DESIGN----------------------*/
 
 /* responsive */

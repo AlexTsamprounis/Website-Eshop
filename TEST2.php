@@ -162,6 +162,7 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 </section>
 
+<<<<<<< Updated upstream
         <!-- REGISTER MODAL -->
 <div id="registerModal" class="modal-overlay" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-modal="true" aria-label="Register form">
@@ -243,6 +244,9 @@ require_once __DIR__ . '/includes/header.php';
         </form>
     </div>
 </div>
+=======
+        
+>>>>>>> Stashed changes
 
 <section id="main-section">
     <div class="container">

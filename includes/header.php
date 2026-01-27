@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AT.COLLECTION</title>
+    <title><?php echo htmlspecialchars($pageTitle ?? 'AT.COLLECTION'); ?></title>
     <link href="test2.css" rel="stylesheet" type="text/css">
 
     <script>
