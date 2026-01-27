@@ -68,7 +68,7 @@
                                 <li><a href="https://www.linkedin.com/in/georgeorestisgiannakopoulos52611a253/" target="_blank">GEORGE</a></li>
                             </ul>
                         </li>
-                        <li>Careers</li>
+                        <li><a href="careers.php">Careers</a></li>
                     </ul>
                 </li>
 

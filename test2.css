@@ -1276,3 +1276,42 @@ section.best-sellers
   .hero-overlay h1{ font-size: 30px; }
   .welcome-strip{ flex-direction: column; align-items:flex-start; }
 }
+
+/* ========= για το careers! ======== */
+
+.careers{
+  margin: 30px auto 20px;            /* ✅ αυτό είναι το “εφέ” απόστασης */
+  padding: 28px 30px;
+  background: rgba(30, 30, 30, 0.75);
+  border: 1px solid rgba(255, 165, 0, 0.22);
+  border-radius: 14px;
+  box-shadow: 0px 2px 10px rgba(0,0,0,0.35);
+}
+
+.careers h1{
+  margin: 0 0 10px;
+  color: #ff9d00;
+  font-size: 36px;
+}
+
+.careers p{
+  margin: 0;
+  color: rgba(255,255,255,0.85);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.careers-cta {
+  padding-top: 28px;
+}
+
+.careers-cta a {
+  color: #ff9d00;                
+  text-decoration: underline;     /* υπογράμμιση */
+  font-weight: 700;
+}
+
+.careers-cta a:hover {
+  color: #ffffff;
+  text-decoration-thickness: 2px; 
+}
