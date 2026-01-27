@@ -34,7 +34,12 @@
             <p class="main-Headline">AT.COLLECTION</p>
             <h5>Since 1954</h5>
         </div>
-
+        <button class="menu-toggle" type="button"
+        aria-controls="site-nav" aria-expanded="false"
+        aria-label="Toggle menu">
+  ☰
+</button>
+    <div class="header-collapse" id="site-nav">
         <nav class="primary-menu">
             <ul>
                 <li><a href="TEST2.php">HOME</a></li>
@@ -96,6 +101,7 @@
     <a href="TEST2.php#form" class="auth-button">Register</a>
 <?php endif; ?>
         </div>
+    </div>
     </section>
 </header>
 

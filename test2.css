@@ -142,19 +142,52 @@ body > header section.header-container
     
 }
 
+/* ===== Desktop default: everything visible ===== */
+.menu-toggle{
+    display: none; /* κρυφό σε desktop */
+}
+
+/* ===== Menu toggle ACTIVE state ===== AYTO EINAI GIA TO DROPDOWN MENU */
+header.headline.nav-open .menu-toggle{
+  background: rgba(255, 157, 0, 0.14);
+  border-color: rgba(255, 157, 0, 0.9);
+  color: #ff9d00;
+  box-shadow:
+    0 0 0 3px rgba(255, 157, 0, 0.25),
+    0 10px 22px rgba(0,0,0,0.45);
+}
+
+.header-collapse{
+    display: flex;               /* φαίνεται σε desktop */
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 24px;
+    flex: 1;
+    min-width: 0;
+}
+
 /*********HEADER LEFT STARTS*********/
 
-body > header p
-{
+body > header .header-left p{
     line-height: 0px;
     font-family: "OswaldRegular", sans-serif;
     letter-spacing: 1px;
 }
 
-body > header h5
-{
+body > header .header-left h5{
     line-height: 0px;
     font-family: "OswaldRegular", sans-serif;
+
+}
+
+/* spacing fix: logo vs menu (desktop) */
+.header-left{
+  flex: 0 0 auto;
+  min-width: 260px;   /* αν θες το κάνεις 240px */
+}
+
+.primary-menu{
+  margin-left: 12px;  /* απόσταση HOME από logo */
 }
 
 /*********HEADER LEFT ENDS*********/
@@ -251,14 +284,14 @@ body > footer p
     padding: 8px 0px;
 }
 
-header .headline 
+/*header .headline 
 {
     display: flex;
     flex-direction: column;
-    align-items: center;    /* κεντράρει logo + menu */
+    align-items: center;    κεντράρει logo + menu 
     gap: 8px;
     padding-bottom: 20px;
-}
+} */
 
 /*-----------------------HEADER LAYOUT ENDS-----------------------*/
 
@@ -988,6 +1021,47 @@ section.best-sellers
 
 /* responsive */
 
+/* to 1100px to esvisa giati dimiourgouse problimata */
+
+/* ===== Mid breakpoint: prevent overlap (tablet / small laptop) ===== */
+@media (max-width: 1024px){
+
+  /* το header μπορεί να σπάσει σωστά σε 2 γραμμές */
+  body > header section.header-container{
+    flex-wrap: wrap;
+    gap: 5px;      /* AYTO PEIRAZWWWWW */
+  }
+
+  /* το logo να μη συμπιέζεται */
+  .header-left{
+    flex: 0 0 auto;
+    min-width: 220px;
+    margin-bottom: 4px;
+  }
+
+  /* το menu+profile/logout πέφτει κάτω σε full width */
+  .header-collapse{
+    flex-basis: 100%;
+    width: 100%;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  /* menu κεντραρισμένο */
+  .primary-menu ul{
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* δεξιά κουμπιά να κάθονται ωραία */
+  header div.header-right{
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
 @media (max-width: 820px){
   .AT-introduction
   {
@@ -999,33 +1073,82 @@ section.best-sellers
   }
 }
 
-@media (max-width: 768px) 
-{
-    body > header section.header-container 
-    {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 15px;
-    }
+@media (max-width: 768px){
 
-    .primary-menu ul 
-    {
-        flex-direction: column;
-        gap: 15px;
-    }
+  body > header section.header-container{
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+  }
 
-    div.header-right 
-    {
-        justify-content: center;
-        gap: 15px;
-    }
+  .menu-toggle{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-    iframe
-    {
-        width: 100%;
-        height: auto;
-    }
+  width: 52px;
+  height: 44px;
+  border-radius: 12px;
+
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255, 165, 0, 0.55);
+  color: #ff9d00;
+
+  font-size: 24px;
+  cursor: pointer;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  transition: transform 180ms ease,
+              background 180ms ease,
+              box-shadow 180ms ease,
+              border-color 180ms ease;
+}
+
+.menu-toggle:hover{
+  background: rgba(0,0,0,0.55);
+  border-color: rgba(255, 165, 0, 0.85);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.45);
+}
+
+.menu-toggle:active{
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+.menu-toggle:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255, 157, 0, 0.28),
+    0 10px 22px rgba(0,0,0,0.45);
+}
+
+  .header-collapse{
+      display: none;
+      width: 100%;
+      flex-basis: 100%;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-top: 12px;
+  }
+
+  header.headline.nav-open .header-collapse{
+      display: flex;
+  }
+
+  .primary-menu ul{
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+  }
+
+  header div.header-right{
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+  }
 }
 
 /* Responsive: stack header items */

@@ -1,6 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Test2.js loaded");
 
+    // =========================
+  // 0) MOBILE HAMBURGER (GLOBAL - runs on all pages)
+  // =========================
+  const headerEl = document.querySelector("header.headline");
+  const menuToggle = document.querySelector(".menu-toggle");
+
+  if (headerEl && menuToggle) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = headerEl.classList.toggle("nav-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      console.log("Hamburger clicked. nav-open =", isOpen);
+    });
+  }
+
   // =========================
   // 1) Textarea character counter (μόνο αν υπάρχει στο register)
   // =========================
