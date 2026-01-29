@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AT.COLLECTION</title>
+    <title><?php echo htmlspecialchars($pageTitle ?? 'AT.COLLECTION'); ?></title>
     <link href="test2.css" rel="stylesheet" type="text/css">
 
     <script>
@@ -98,7 +98,7 @@
     <a href="logout.php" class="auth-link">Logout</a>
 <?php else: ?>
     <a href="login.php" class="auth-link">Login</a>
-    <a href="TEST2.php#form" class="auth-button">Register</a>
+    <a href="#" class="auth-button" data-open="register">Register</a>
 <?php endif; ?>
         </div>
     </div>

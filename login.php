@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             <?php endif; ?>
             <div class="login-links">
                 <a href="forgot_password.php">Ξέχασες τον κωδικό σου;</a>
-                <a href="TEST2.php#form">Create an account</a>
+                <a href="TEST2.php?register=1">Create an account</a> <!-- Σύνδεσμος για εγγραφή Ανοίγει αυτόματα -->
             </div>
 
             <form method="post" action="login.php" class="login-form">
