@@ -98,7 +98,7 @@
     <a href="logout.php" class="auth-link">Logout</a>
 <?php else: ?>
     <a href="login.php" class="auth-link">Login</a>
-    <a href="#" class="auth-button" data-open="register">Register</a>
+            <a href="register.php" class="auth-button">Register</a>
 <?php endif; ?>
         </div>
     </div>
