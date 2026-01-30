@@ -124,7 +124,7 @@ require_once __DIR__ . '/includes/header.php';
                                 <p class="product-card__desc"><?php echo htmlspecialchars($lastDesc); ?></p>
                                 <p class="product-card__price"><?php echo number_format($lastPrice, 2); ?> €</p>
 
-                                <button onclick='addToCart(<?php echo json_encode($name); ?>, <?php echo $price; ?>)'
+                                <button onclick='addToCart(<?php echo json_encode($lastName); ?>, <?php echo $lastPrice; ?>)'
                                         class="auth-button"
                                         style="width:100%; cursor:pointer; margin-bottom:10px; background-color:#ff9d00; border:none; padding:10px;">
                                     Add to Cart

@@ -69,6 +69,17 @@ input[type="submit"]:hover {
   color: rgb(171, 14, 14);
 }
 
+header {
+  position: relative;
+  z-index: 9999;
+}
+
+.menu-toggle {
+  position: relative;
+  z-index: 10000;
+  pointer-events: auto;
+}
+
 /*----------------------FORM PAGE (section#form)----------------------*/
 
 section#form {
@@ -883,6 +894,7 @@ button.modal-close:hover {
   padding: 40px;
   background: linear-gradient(90deg, rgba(0,0,0,.70), rgba(0,0,0,.15));
   color: #fff;
+  pointer-events: none;
 }
 
 .hero-overlay h1{
@@ -902,6 +914,7 @@ button.modal-close:hover {
   display:flex;
   gap:12px;
   flex-wrap:wrap;
+  pointer-events: auto;
 }
 
 .hero-btn{
@@ -1192,15 +1205,30 @@ div a.welcome-cta,
 
 /* 600px */
 @media (max-width: 600px) {
-  .best-sellers-header { /* FIX: σωστό class */
+
+  .best-sellers-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .product-card { max-width: 100%; }
+  .product-card { 
+    max-width: 100%; 
+  }
 
-  .hero-slider { height: 320px; }
-  .hero-btn { width: 100%; text-align: center; }
+  .hero-slider { 
+    height: 320px; 
+  }
+
+  /*----- HERO BUTTON FIX -----*/
+  .hero-actions{
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .hero-btn{
+    width: auto;
+    text-align: center;
+  }
 
   .modal-box {
     width: min(520px, 94%);
@@ -1208,7 +1236,9 @@ div a.welcome-cta,
     border-radius: 12px;
   }
 
-  form { width: 100%; }
+  form { 
+    width: 100%; 
+  }
 }
 
 /* 480px */
