@@ -841,9 +841,8 @@ button.modal-close:hover {
   text-decoration: none;
 }
 
-/*----------------------HERO SLIDER----------------------*/
-
-.hero-slider {
+/* ===================== HERO SLIDER ==================== */
+.hero-slider{
   position: relative;
   width: 100%;
   height: 420px;
@@ -854,142 +853,118 @@ button.modal-close:hover {
 }
 
 .hero-slide {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transform: scale(1.02);
-  transition: opacity .6s ease, transform .8s ease;
-  pointer-events: none;
-  z-index: 1;
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity .6s ease, transform .8s ease;
+    
+    /* Απενεργοποιούμε τα κλικ στα ανενεργά slides */
+    pointer-events: none; 
+    z-index: 1; 
 }
 
 .hero-slide.active {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-  z-index: 5;
+    opacity: 1;
+    transform: scale(1);
+    
+    /* Ενεργοποιούμε τα κλικ ΜΟΝΟ εδώ */
+    pointer-events: auto; 
+    z-index: 5; 
 }
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
   padding: 40px;
   background: linear-gradient(90deg, rgba(0,0,0,.70), rgba(0,0,0,.15));
   color: #fff;
 }
 
-.hero-overlay h1 {
+.hero-overlay h1{
   font-size: 44px;
-  margin: 0 0 10px;
+  margin:0 0 10px;
   letter-spacing: .5px;
 }
 
-.hero-overlay p {
+.hero-overlay p{
   max-width: 520px;
   font-size: 16px;
   color: rgba(255,255,255,.88);
   margin: 0 0 18px;
 }
 
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-.hero-btn,
-.hero-btn.secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 13px 20px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #ff9d00, #ff7a00);
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: none;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-  transition: all 0.25s ease;
+.hero-btn{
+  display:inline-block;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background:#ff9d00;
+  color:#111;
+  font-weight:800;
+  text-decoration:none;
 }
 
-.hero-btn { color: #111; }
-.hero-btn.secondary { color: #e9dfdf; }
-
-.hero-btn:hover,
-.hero-btn.secondary:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.55);
-  background: linear-gradient(135deg, #ffc066, #ff9d00);
-  color: black;
+.hero-btn.secondary{
+  background: rgba(0,0,0,.35);
+  color:#fff;
+  border: 1px solid rgba(255,255,255,.25);
 }
-
-.hero-btn.secondary:hover { text-decoration: underline; }
 
 .hero-nav {
-  transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease, color 180ms ease;
-  border: 1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 10px 26px rgba(0,0,0,.35);
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  background: rgba(0,0,0,.45);
-  color: #fff;
-  font-size: 28px;
-  line-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 20;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: rgba(0,0,0,.45);
+    color: #fff;
+    font-size: 28px;
+    line-height: 44px;
+    
+    /* Υψηλό z-index για να μην τα καλύπτει τίποτα */
+    z-index: 20; 
 }
 
-.hero-nav:hover {
-  background: #ff9d0067;
-  color: #111;
-  transform: translateY(-50%) scale(1.08);
-  box-shadow: 0 16px 36px rgba(0,0,0,.55);
-  text-decoration: none;
-}
-.hero-nav:active { transform: translateY(-50%) scale(0.95); }
-
-.hero-nav.prev { left: 12px; }
-.hero-nav.next { right: 12px; }
+.hero-nav.prev{ left: 12px; }
+.hero-nav.next{ right: 12px; }
 
 .hero-dots {
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 20;
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    
+    /* Υψηλό z-index */
+    z-index: 20; 
 }
 
-.hero-dots .dot {
-  width: 10px;
-  height: 10px;
+.hero-dots .dot{
+  width: 10px; height: 10px;
   border-radius: 999px;
-  border: none;
+  border:none;
   background: rgba(255,255,255,.45);
-  cursor: pointer;
+  cursor:pointer;
 }
-.hero-dots .dot.active { background: #ff9d00; }
+.hero-dots .dot.active{ background:#ff9d00; }
 
-/*----------------------WELCOME STRIP----------------------*/
+/*---------------------- END HERO SLIDER----------------------*/
+
+/*----------------------WELCOME STRIP-------------------------*/
 
 .welcome-strip {
   display: flex;
