@@ -9,31 +9,69 @@ if (empty($_SESSION['user'])) {
     exit;
 }
 
+$user_email = (string)($_SESSION['user']['email'] ?? '');
+if ($user_email === '') {
+    $_SESSION['flash'] = "Πρόβλημα session. Κάντε login ξανά.";
+    header("Location: login.php");
+    exit;
+}
+
 // 2) Δέχεται μόνο POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: cart.php");
     exit;
 }
 
-$user_email = $_SESSION['user']['email'];
+// 3) Παίρνουμε items από payment.php (hidden input)
+$items = (string)($_POST['cart_items'] ?? '');
 
-// 3) Παίρνουμε δεδομένα από payment.php
-$total = isset($_POST['total_price']) ? (float)$_POST['total_price'] : 0;
-$items = $_POST['cart_items'] ?? '';
-
-$full_name = trim($_POST['full_name'] ?? '');
-$address   = trim($_POST['address'] ?? '');
-$city      = trim($_POST['city'] ?? '');
-$zip       = trim($_POST['zip'] ?? '');
-$card_name   = trim($_POST['card_name'] ?? '');
-$card_number = trim($_POST['card_number'] ?? '');
-$card_expiry = trim($_POST['card_expiry'] ?? '');
-// 4) Basic validation
-if ($total <= 0 || $items === '' || $items === '[]') {
+if ($items === '' || $items === '[]') {
     $_SESSION['flash'] = "Το καλάθι είναι άδειο ή τα δεδομένα παραγγελίας είναι άκυρα.";
     header("Location: cart.php");
     exit;
 }
+
+// optional limit
+if (strlen($items) > 10000) {
+    $_SESSION['flash'] = "Κάτι πήγε λάθος: πολύ μεγάλα δεδομένα παραγγελίας.";
+    header("Location: cart.php");
+    exit;
+}
+
+// 4) Decode + validate JSON items
+try {
+    $decodedItems = json_decode($items, true, 512, JSON_THROW_ON_ERROR);
+} catch (Throwable $e) {
+    $decodedItems = null;
+}
+
+if (!is_array($decodedItems) || empty($decodedItems)) {
+    $_SESSION['flash'] = "Άκυρα δεδομένα καλαθιού.";
+    header("Location: cart.php");
+    exit;
+}
+
+// 5) Re-calc total (security: δεν εμπιστευόμαστε POST total_price)
+$total = 0.0;
+foreach ($decodedItems as $it) {
+    $price = isset($it['price']) ? (float)$it['price'] : 0.0;
+    $qty   = isset($it['quantity']) ? (int)$it['quantity'] : 0;
+
+    if ($price <= 0 || $qty <= 0) continue;
+    $total += $price * $qty;
+}
+
+if ($total <= 0) {
+    $_SESSION['flash'] = "Το καλάθι είναι άδειο.";
+    header("Location: cart.php");
+    exit;
+}
+
+// 6) Shipping fields
+$full_name = trim($_POST['full_name'] ?? '');
+$address   = trim($_POST['address'] ?? '');
+$city      = trim($_POST['city'] ?? '');
+$zip       = trim($_POST['zip'] ?? '');
 
 if ($full_name === '' || $address === '' || $city === '' || !preg_match('/^\d{5}$/', $zip)) {
     $_SESSION['flash'] = "Παρακαλώ συμπληρώστε σωστά τα στοιχεία αποστολής.";
@@ -41,11 +79,9 @@ if ($full_name === '' || $address === '' || $city === '' || !preg_match('/^\d{5}
     exit;
 }
 
-// 5) Insert: ΑΠΟΘΗΚΕΥΟΥΜΕ shipping στοιχεία + items + total
-//    Δεν αποθηκεύουμε κάρτες (παρότι υπάρχουν πεδία).
-$sql = "INSERT INTO orders (user_email, total_price, order_items, full_name, shipping_address, city, zip_code, card_name, card_number, card_expiry)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+// 7) Insert order (ΔΕΝ αποθηκεύουμε κάρτες)
+$sql = "INSERT INTO orders (user_email, total_price, order_items, full_name, shipping_address, city, zip_code)
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = mysqli_prepare($conn, $sql);
 if (!$stmt) {
@@ -54,49 +90,59 @@ if (!$stmt) {
     exit;
 }
 
+// ✅ 7 params => types: s d s s s s s
 mysqli_stmt_bind_param(
     $stmt,
-    "sdssssssss",
+    "sdsssss",
     $user_email,
     $total,
     $items,
     $full_name,
     $address,
     $city,
-    $zip,
-    $card_name,
-    $card_number,
-    $card_expiry
+    $zip
 );
 
-if (!mysqli_stmt_execute($stmt)) {
+$ok = mysqli_stmt_execute($stmt);
+if (!$ok) {
+    mysqli_stmt_close($stmt);
     $_SESSION['flash'] = "Σφάλμα βάσης: " . mysqli_error($conn);
     header("Location: cart.php");
     exit;
 }
 
-// 6) Flash message για home
+$order_id = (int)mysqli_insert_id($conn);
+mysqli_stmt_close($stmt);
+
+// 8) Flash message
 $_SESSION['flash'] = "✅ Συγχαρητήρια $full_name! Η παραγγελία σας καταχωρήθηκε και θα σταλεί στη διεύθυνση $address.";
 
-// 7) Success page που καθαρίζει localStorage και πάει TEST2.php
-?>
-<!DOCTYPE html>
-<html lang="el">
-<head>
-  <meta charset="UTF-8">
-  <title>Order Success</title>
-  <meta name="robots" content="noindex,nofollow">
-</head>
-<body>
-  <script>
-    (function () {
-      const userEmail = <?php echo json_encode($user_email); ?>;
-      localStorage.removeItem('at_cart_guest');
-      localStorage.removeItem('at_cart_' + userEmail);
-      window.location.href = 'TEST2.php?order=success';
-    })();
-  </script>
+// 9) Success UI page (localStorage clear + redirect handled by Test2.js)
+$pageTitle = "Order Success | AT.COLLECTION";
+$loadCartJs = false;
 
-  <p>Η παραγγελία καταχωρήθηκε. Μεταφορά στην αρχική...</p>
-</body>
-</html>
+require_once __DIR__ . '/includes/header.php';
+?>
+
+<section class="container order-success-wrap" data-order-success="1" data-user-email="<?php echo htmlspecialchars($user_email); ?>" data-order-id="<?php echo (int)$order_id; ?>">
+  <div class="order-success-card">
+    <h1 class="order-success-title">✅ Η παραγγελία καταχωρήθηκε!</h1>
+
+    <p class="order-success-text">
+      Η παραγγελία σας καταχωρήθηκε. Σε λίγο θα μεταφερθείτε στις λεπτομέρειες παραγγελίας.
+    </p>
+
+    <div class="order-success-actions">
+      <a class="auth-button btn-link" href="order_details.php?id=<?php echo (int)$order_id; ?>">
+        Προβολή Παραγγελίας
+      </a>
+      <a class="auth-link" href="TEST2.php">Επιστροφή στην αρχική</a>
+    </div>
+
+    <p class="order-success-small">
+      (Αν δεν γίνει αυτόματα μεταφορά, πατήστε “Προβολή Παραγγελίας”.)
+    </p>
+  </div>
+</section>
+
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

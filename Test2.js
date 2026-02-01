@@ -195,3 +195,102 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => heroNext(), 6000);
   }
 });
+
+// =========================
+// PAYMENT PAGE logic (only if payment form exists)
+// =========================
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("payment-form");
+  if (!form) return; // ✅ important: don't run on other pages
+
+  // Χρησιμοποιούμε το ίδιο key με cart.js
+  const userEmail =
+    (typeof window !== "undefined" && window.currentUserEmail && String(window.currentUserEmail).trim())
+      ? String(window.currentUserEmail).trim()
+      : "guest";
+
+  const CART_STORAGE_KEY = (userEmail === "guest") ? "at_cart_guest" : ("at_cart_" + userEmail);
+
+  const hiddenItems = document.getElementById("hidden_items");
+
+  const expiryInput = document.getElementById("card_expiry");
+  const cvvInput = document.getElementById("card_cvv");
+
+  const cardInput = form.elements["card_number"];
+  const zipInput  = form.elements["zip"];
+
+  if (!hiddenItems || !expiryInput || !cvvInput || !cardInput || !zipInput) return;
+
+  // Μόνο digits για κάρτα/cvv/zip (nice-to-have)
+  cardInput.addEventListener("input", () => {
+    cardInput.value = cardInput.value.replace(/\D/g, "").slice(0, 16);
+  });
+
+  cvvInput.addEventListener("input", () => {
+    cvvInput.value = cvvInput.value.replace(/\D/g, "").slice(0, 3);
+  });
+
+  zipInput.addEventListener("input", () => {
+    zipInput.value = zipInput.value.replace(/\D/g, "").slice(0, 5);
+  });
+
+  // expiry MM/YY
+  expiryInput.addEventListener("input", (e) => {
+    let v = e.target.value.replace(/\D/g, "").slice(0, 4);
+    if (v.length >= 3) e.target.value = v.substring(0, 2) + "/" + v.substring(2, 4);
+    else e.target.value = v;
+  });
+
+  form.addEventListener("submit", function (e) {
+    const errors = [];
+
+    const card = cardInput.value.trim();
+    const cvv  = cvvInput.value.trim();
+    const zip  = zipInput.value.trim();
+    const expiry = expiryInput.value.trim();
+
+    if (card.length !== 16) errors.push("Η κάρτα πρέπει να έχει 16 ψηφία.");
+    if (cvv.length !== 3) errors.push("Το CVV πρέπει να έχει 3 ψηφία.");
+    if (zip.length !== 5) errors.push("Ο ΤΚ πρέπει να έχει 5 ψηφία.");
+    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) errors.push("Λάθος μορφή ημερομηνίας (MM/YY).");
+
+    const cartData = localStorage.getItem(CART_STORAGE_KEY);
+    if (!cartData || cartData === "[]") errors.push("Το καλάθι είναι άδειο.");
+
+    if (errors.length > 0) {
+      e.preventDefault();
+      alert("⚠️ Σφάλματα:\n\n" + errors.join("\n"));
+      return;
+    }
+
+    hiddenItems.value = cartData;
+  });
+});
+
+// =========================
+// ORDER SUCCESS (finish_order.php) - clear cart + redirect
+// =========================
+document.addEventListener("DOMContentLoaded", function () {
+  const successEl = document.querySelector("[data-order-success='1']");
+  if (!successEl) return;
+
+  const userEmail = successEl.getAttribute("data-user-email") || "guest";
+  const orderId = successEl.getAttribute("data-order-id") || "";
+
+  // clear carts
+  try {
+    localStorage.removeItem("at_cart_guest");
+    if (userEmail && userEmail !== "guest") {
+      localStorage.removeItem("at_cart_" + userEmail);
+    }
+  } catch (e) {
+    // ignore storage errors
+  }
+
+  // auto redirect after short delay (gives user feedback)
+  if (orderId) {
+    setTimeout(() => {
+      window.location.href = "order_details.php?id=" + encodeURIComponent(orderId);
+    }, 800);
+  }
+});

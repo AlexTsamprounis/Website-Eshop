@@ -1,57 +1,56 @@
 <?php
 session_start();
-include 'db_connect.php';
 
-// ΑΝ Ο ΧΡΗΣΤΗΣ ΠΑΤΗΣΕΙ ΤΟ ΚΟΥΜΠΙ "ΑΠΟΣΤΟΛΗ" (POST)
+$pageTitle  = "Ανάκτηση Κωδικού | AT.COLLECTION";
+$loadCartJs = false; // δεν χρειάζεται cart.js εδώ
+
+// Δεν χρειάζεται DB για mock flow
+// require_once __DIR__ . '/db_connect.php';
+
+// POST: submit email
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
-    
+
     if ($email === '') {
         $_SESSION['flash'] = 'Παρακαλώ συμπληρώστε ένα email.';
     } else {
-        // Εδώ θα έμπαινε ο κώδικας για την αποστολή email.
-        // Για την εργασία, απλά βγάζουμε ένα μήνυμα επιτυχίας.
+        // Mock / εργασία: δεν στέλνουμε πραγματικό email.
+        // "Always success" μήνυμα για να μη γίνεται email enumeration.
         $_SESSION['flash'] = 'Αν υπάρχει λογαριασμός με αυτό το email, θα λάβετε σύντομα οδηγίες.';
     }
+
     header('Location: forgot_password.php');
     exit;
 }
 
-// ΑΝ Ο ΧΡΗΣΤΗΣ ΑΠΛΑ ΕΠΙΣΚΕΠΤΕΤΑΙ ΤΗ ΣΕΛΙΔΑ (GET)
+require_once __DIR__ . '/includes/header.php';
 ?>
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Ανάκτηση Κωδικού | AT.COLLECTION</title>
-    <link href="test2.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-<main class="login-page">
-    <div class="login-card centered">
-        <h1 class="login-title">Ανάκτηση Κωδικού</h1>
-        
-        <?php if (!empty($_SESSION['flash'])): ?>
-            <div style="background:#d1ecf1; color:#0c5460; padding:10px; margin-bottom:15px; border-radius:5px; text-align:center; border: 1px solid #bee5eb;">
-                <?php echo htmlspecialchars($_SESSION['flash']); unset($_SESSION['flash']); ?>
-            </div>
-        <?php endif; ?>
 
-        <form method="post" action="forgot_password.php" class="login-form">
-            <p style="color: #ccc; margin-bottom: 20px; text-align: center;">
-                Εισάγετε το email σας για να ξεκινήσει η διαδικασία επαναφοράς.
-            </p>
-            
-            <label class="floating">Email</label>
-            <input type="email" name="email" required placeholder="example@mail.com">
+<section class="container forgot-wrap">
+  <div class="login-card centered">
+    <h1 class="login-title">Ανάκτηση Κωδικού</h1>
 
-            <button type="submit" class="primary">Αποστολή Οδηγιών</button>
-        </form>
+    <?php if (!empty($_SESSION['flash'])): ?>
+      <div class="flash-success flash-success--info">
+        <?php echo htmlspecialchars($_SESSION['flash']); unset($_SESSION['flash']); ?>
+      </div>
+    <?php endif; ?>
 
-        <div class="login-links" style="margin-top: 20px;">
-            <a href="login.php">← Επιστροφή στο Login</a>
-        </div>
+    <form method="post" action="forgot_password.php" class="login-form" autocomplete="on">
+      <p class="forgot-hint">
+        Εισάγετε το email σας για να ξεκινήσει η διαδικασία επαναφοράς.
+      </p>
+
+      <label class="floating">Email</label>
+      <input type="email" name="email" required placeholder="example@mail.com">
+
+      <button type="submit" class="primary">Αποστολή Οδηγιών</button>
+    </form>
+
+    <div class="login-links forgot-links">
+      <a href="login.php">← Επιστροφή στο Login</a>
     </div>
-</main>
-</body>
-</html>
+  </div>
+</section>
+
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

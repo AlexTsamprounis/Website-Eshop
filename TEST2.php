@@ -4,11 +4,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
+$pageTitle = "AT.COLLECTION | Home";
+$pageClass = "page-home";
+$loadCartJs = true; // για να γράφει σωστά το cart count στο header
 require_once __DIR__ . '/db_connect.php';
 require_once __DIR__ . '/includes/header.php';
 ?>
-
-
 
 <section class="hero-slider" id="hero">
   <div class="hero-slide active" style="background-image:url('Assets/Images/Workshop.jpg')">
@@ -22,7 +23,7 @@ require_once __DIR__ . '/includes/header.php';
     </div>
   </div>
 
-  <div class="hero-slide" style="background-image:url('Assets/Images/at collecton 2024/697.jpg')">
+  <div class="hero-slide" style="background-image:url('Assets/Images/at_collection_2024/697.jpg')">
     <div class="hero-overlay">
       <h1>Premium Leather</h1>
       <p>Χειροποίητες τσάντες από το 1954</p>
@@ -33,12 +34,12 @@ require_once __DIR__ . '/includes/header.php';
     </div>
   </div>
 
-  <button class="hero-nav prev" type="button" onclick="heroPrev()">‹</button>
-  <button class="hero-nav next" type="button" onclick="heroNext()">›</button>
+  <button class="hero-nav prev" type="button" data-hero-prev>‹</button>
+  <button class="hero-nav next" type="button" data-hero-next>›</button>
 
   <div class="hero-dots">
-    <button type="button" class="dot active" onclick="heroGo(0)"></button>
-    <button type="button" class="dot" onclick="heroGo(1)"></button>
+  <button type="button" class="dot active" data-hero-dot data-hero-index="0"></button>
+  <button type="button" class="dot" data-hero-dot data-hero-index="1"></button>
   </div>
 </section>
 
@@ -55,111 +56,66 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 
-
-
-
-
-
-
-
 <section class="best-sellers" id="best-sellers">
-    <div class="best-sellers__header">
-        <h2 class="best-sellers__title">Best Sellers!!</h2>
-    </div>
+  <div class="best-sellers-header">
+    <h2 class="best-sellers__title">Best Sellers!!</h2>
+  </div>
 
-    <div class="products-flex">
-        <?php
-        // Φέρνουμε Best Sellers από DB
-        $sql = "SELECT * FROM products WHERE category = 'bestseller'";
-        $result = mysqli_query($conn, $sql);
+  <div class="products-flex">
+    <?php
+    // Φέρνουμε Best Sellers από DB
+    $sql = "SELECT * FROM products WHERE category = 'bestseller'";
+    $result = mysqli_query($conn, $sql);
 
-        if (!$result) {
-            echo "<p style='color:#ff6b6b;'>DB Error: " . htmlspecialchars(mysqli_error($conn)) . "</p>";
-        } else {
-            $total_products = mysqli_num_rows($result);
-            $product_index = 0;
+    if (!$result) {
+        echo "<p style='color:#ff6b6b;'>DB Error: " . htmlspecialchars(mysqli_error($conn)) . "</p>";
+    } else {
+        while ($row = mysqli_fetch_assoc($result)) {
 
-            while ($row = mysqli_fetch_assoc($result)) {
-                $product_index++;
+            $id    = (int)$row['id'];
+            $name  = $row['name'] ?? '';
+            $desc  = $row['description'] ?? '';
+            $price = (float)($row['price'] ?? 0);
+            $img   = $row['image_path'] ?? '';
+            ?>
+            
+            <article class="product-card">
+              <img
+                class="product-card__img"
+                src="<?= htmlspecialchars($img) ?>"
+                alt="<?= htmlspecialchars($name) ?>"
+              >
 
-                $name = $row['name'] ?? '';
-                $desc = $row['Description'] ?? ($row['description'] ?? '');
-                $price = (float)($row['price'] ?? 0);
-                $img = $row['image_path'] ?? '';
+              <div class="product-card__body">
+                <h3 class="product-card__name">
+                  <?= htmlspecialchars($name) ?>
+                </h3>
 
-                // (Προαιρετικό) ειδική λογική τελευταίας σειράς όπως είχες
-                if ($product_index === ($total_products - 1)) {
-                    echo '<div class="last-row-wrapper">';
+                <p class="product-card__desc">
+                  <?= htmlspecialchars($desc) ?>
+                </p>
 
-                    // προτελευταίο
-                    ?>
-                    <article class="product-card">
-                        <img class="product-card__img" src="<?php echo htmlspecialchars($img); ?>" alt="<?php echo htmlspecialchars($name); ?>">
-                        <div class="product-card__body">
-                            <h3 class="product-card__name"><?php echo htmlspecialchars($name); ?></h3>
-                            <p class="product-card__desc"><?php echo htmlspecialchars($desc); ?></p>
-                            <p class="product-card__price"><?php echo number_format($price, 2); ?> €</p>
+                <div class="product-card__footer">
+                  <span class="product-card__price">
+                    <?= number_format($price, 2) ?> €
+                  </span>
 
-                            <button onclick='addToCart(<?php echo json_encode($name); ?>, <?php echo $price; ?>)'
-                                    class="auth-button"
-                                    style="width:100%; cursor:pointer; margin-bottom:10px; background-color:#ff9d00; border:none; padding:10px;">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </article>
-                    <?php
+                  <button
+                      type="button"
+                      class="add-to-cart-btn"
+                      data-add-to-cart
+                      data-product-id="<?= (int)$id ?>">
+                      Add to Cart
+                    </button>
+                </div>
+              </div>
+            </article>
 
-                    // τελευταίο προϊόν
-                    $last = mysqli_fetch_assoc($result);
-                    if ($last) {
-                        $lastName = $last['name'] ?? '';
-                        $lastDesc = $last['Description'] ?? ($last['description'] ?? '');
-                        $lastPrice = (float)($last['price'] ?? 0);
-                        $lastImg = $last['image_path'] ?? '';
-                        ?>
-                        <article class="product-card">
-                            <img class="product-card__img" src="<?php echo htmlspecialchars($lastImg); ?>" alt="<?php echo htmlspecialchars($lastName); ?>">
-                            <div class="product-card__body">
-                                <h3 class="product-card__name"><?php echo htmlspecialchars($lastName); ?></h3>
-                                <p class="product-card__desc"><?php echo htmlspecialchars($lastDesc); ?></p>
-                                <p class="product-card__price"><?php echo number_format($lastPrice, 2); ?> €</p>
-
-                                <button onclick='addToCart(<?php echo json_encode($lastName); ?>, <?php echo $lastPrice; ?>)'
-                                        class="auth-button"
-                                        style="width:100%; cursor:pointer; margin-bottom:10px; background-color:#ff9d00; border:none; padding:10px;">
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </article>
-                        <?php
-                    }
-
-                    echo '</div>';
-                    break; // τελειώσαμε με τα 2 τελευταία
-                }
-
-                // κανονικό output
-                ?>
-                <article class="product-card">
-                    <img class="product-card__img" src="<?php echo htmlspecialchars($img); ?>" alt="<?php echo htmlspecialchars($name); ?>">
-
-                    <div class="product-card__body">
-                        <h3 class="product-card__name"><?php echo htmlspecialchars($name); ?></h3>
-                        <p class="product-card__desc"><?php echo htmlspecialchars($desc); ?></p>
-                        <p class="product-card__price"><?php echo number_format($price, 2); ?> €</p>
-
-                        <button onclick='addToCart(<?php echo json_encode($name); ?>, <?php echo $price; ?>)'
-                                class="auth-button"
-                                style="width:100%; cursor:pointer; margin-bottom:10px; background-color:#ff9d00; border:none; padding:10px;">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-                <?php
-            } // end while
-        } // end else
-        ?>
-    </div>
+            <?php
+        } // end while
+    } // end else
+    ?>
+  </div>
 </section>
 
 

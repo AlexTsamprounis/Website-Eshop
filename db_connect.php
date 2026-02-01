@@ -1,30 +1,30 @@
 <?php
+// db_connect.php (LOCAL)
+
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
+$host     = "127.0.0.1";
 $username = "root";
-$password = "";
+$password = "";              // αν έχεις βάλει password στο root, γράψ' το εδώ
 $dbname   = "at_collection_db";
 
-// Δοκιμάζουμε host + ports
-$host  = "127.0.0.1";
 $ports = [3306, 3307];
-
-$conn = null;
+$conn  = null;
 
 foreach ($ports as $port) {
-    try {
-        $conn = mysqli_connect($host, $username, $password, $dbname, $port);
-        mysqli_set_charset($conn, "utf8mb4");
-        break; // αν πετύχει, σταματάμε
-    } catch (mysqli_sql_exception $e) {
-        // συνεχίζουμε να δοκιμάσουμε το επόμενο port
-        $conn = null;
-    }
+  try {
+    $conn = mysqli_connect($host, $username, $password, $dbname, $port);
+    mysqli_set_charset($conn, "utf8mb4");
+    break;
+  } catch (mysqli_sql_exception $e) {
+    $conn = null;
+  }
 }
 
 if (!$conn) {
-    $tried = implode(", ", $ports);
-    die("<strong>Σφάλμα Σύνδεσης:</strong> Δεν μπόρεσα να συνδεθώ στη MySQL στο <code>$host</code> στις θύρες <code>$tried</code>.
-    <br><em>Έλεγξε ότι το MySQL στο XAMPP είναι Running και ποια θύρα χρησιμοποιεί.</em>");
+  die(
+    "<strong>DB ERROR:</strong> Δεν έγινε σύνδεση στο <code>$host</code> στις θύρες <code>" .
+    implode(", ", $ports) .
+    "</code>. <br> Άνοιξε XAMPP → MySQL Start και δες ποια θύρα χρησιμοποιεί."
+  );
 }
-?>

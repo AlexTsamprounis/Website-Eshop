@@ -8,20 +8,34 @@ if (empty($_SESSION['user'])) {
     exit;
 }
 
-$total = isset($_POST['total']) ? (float)$_POST['total'] : 0;
-$items = $_POST['items'] ?? '';
+$user_email = (string)($_SESSION['user']['email'] ?? '');
 
-$user_email = $_SESSION['user']['email'];
+// Δέχεται μόνο POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Location: cart.php");
+    exit;
+}
 
-if ($total <= 0 || $items === '') {
+$total = isset($_POST['total']) ? (float)$_POST['total'] : 0.0;
+$items = (string)($_POST['items'] ?? '');
+
+if ($total <= 0 || $items === '' || $items === '[]') {
     $_SESSION['flash'] = "Κάτι πήγε λάθος: άδειο καλάθι ή άκυρα δεδομένα.";
     header("Location: cart.php");
     exit;
 }
 
-// (προαιρετικό) basic limit για να μην περάσει τεράστιο string
+// limit για να μην περνάει τεράστιο string
 if (strlen($items) > 10000) {
     $_SESSION['flash'] = "Κάτι πήγε λάθος: πολύ μεγάλα δεδομένα παραγγελίας.";
+    header("Location: cart.php");
+    exit;
+}
+
+// ✅ Validate ότι είναι JSON array
+$decoded = json_decode($items, true);
+if (!is_array($decoded)) {
+    $_SESSION['flash'] = "Κάτι πήγε λάθος: τα items δεν είναι έγκυρο JSON.";
     header("Location: cart.php");
     exit;
 }
@@ -37,12 +51,20 @@ if (!$stmt) {
 
 mysqli_stmt_bind_param($stmt, "sds", $user_email, $total, $items);
 
-if (mysqli_stmt_execute($stmt)) {
+try {
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    // ✅ πάρε order id για redirect
+    $order_id = (int)mysqli_insert_id($conn);
+
     $_SESSION['flash'] = "✅ Η παραγγελία σας καταχωρήθηκε επιτυχώς!";
-    header("Location: finish_order.php");
+    header("Location: finish_order.php?id=" . $order_id);
     exit;
-} else {
-    $_SESSION['flash'] = "DB error: " . mysqli_error($conn);
+
+} catch (mysqli_sql_exception $e) {
+    mysqli_stmt_close($stmt);
+    $_SESSION['flash'] = "DB error: Σφάλμα αποθήκευσης παραγγελίας.";
     header("Location: cart.php");
     exit;
 }
