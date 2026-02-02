@@ -1,6 +1,6 @@
 <?php
 session_start();
-$loadCartJs = false;
+$loadCartJs = true;
 require_once __DIR__ . '/db_connect.php';
 
 /**

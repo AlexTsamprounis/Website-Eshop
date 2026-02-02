@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
+$loadCartJs = true;
 require_once __DIR__ . '/db_connect.php';
 
 $pageTitle = "Register | AT.COLLECTION";

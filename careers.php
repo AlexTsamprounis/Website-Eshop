@@ -2,7 +2,7 @@
 session_start();
 
 $pageTitle = "Careers | AT.COLLECTION";
-$loadCartJs = false; // δεν χρειάζεται cart.js εδώ
+$loadCartJs = true;
 
 require_once __DIR__ . '/db_connect.php';
 require_once __DIR__ . '/includes/header.php';
