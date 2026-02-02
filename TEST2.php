@@ -18,7 +18,11 @@ require_once __DIR__ . '/includes/header.php';
       <p>−20% σε επιλεγμένες δερμάτινες τσάντες</p>
       <div class="hero-actions">
         <a class="hero-btn" href="#best-sellers">Δες Best Sellers</a>
-        <a class="hero-btn secondary" href="register.php">Γίνε μέλος</a>
+        <?php if (empty($_SESSION['user'])): ?>
+          <a href="register.php" class="hero-btn secondary">Γίνε μέλος</a>
+        <?php else: ?>
+          <a href="profile.php" class="hero-btn secondary">Το προφίλ μου</a>
+        <?php endif; ?>
       </div>
     </div>
   </div>
