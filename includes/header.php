@@ -14,13 +14,13 @@ $pageClass  = $pageClass ?? '';     // default: καμία page-specific class
   <meta name="robots" content="noindex,nofollow">
   <title><?php echo htmlspecialchars($pageTitle); ?></title>
 
-  <link rel="stylesheet" href="test2.css">
+  <link rel="stylesheet" href="styles.css">
 
   <script>
     window.currentUserEmail = <?php echo json_encode($_SESSION['user']['email'] ?? 'guest'); ?>;
   </script>
 
-  <script src="Test2.js" defer></script>
+  <script src="main.js" defer></script>
 
   <?php if ($loadCartJs): ?>
     <script src="cart.js" defer></script>
@@ -49,12 +49,12 @@ $pageClass  = $pageClass ?? '';     // default: καμία page-specific class
     <div class="header-collapse" id="site-nav">
       <nav class="primary-menu">
         <ul>
-          <li><a href="TEST2.php">HOME</a></li>
+          <li><a href="index.php">HOME</a></li>
 
           <li>
-            <a href="TEST2.php#main-section">PRODUCTS</a>
+            <a href="index.php#main-section">PRODUCTS</a>
             <ul class="dropdown">
-              <li><a href="TEST2.php#best-sellers">Best Sellers</a></li>
+              <li><a href="index.php#best-sellers">Best Sellers</a></li>
               <li>
                 Bags Collection
                 <ul class="dropdown">
@@ -68,9 +68,9 @@ $pageClass  = $pageClass ?? '';     // default: καμία page-specific class
           </li>
 
           <li>
-            <a href="TEST2.php#main-section">ABOUT</a>
+            <a href="index.php#main-section">ABOUT</a>
             <ul class="dropdown">
-              <li><a href="TEST2.php#main-section">History</a></li>
+              <li><a href="index.php#main-section">History</a></li>
               <li>
                 Team
                 <ul class="dropdown">
@@ -83,7 +83,7 @@ $pageClass  = $pageClass ?? '';     // default: καμία page-specific class
             </ul>
           </li>
 
-          <li><a href="TEST2.php#secondary-section">CONTACT</a></li>
+          <li><a href="index.php#secondary-section">CONTACT</a></li>
 
           <li>
             <a href="cart.php" class="cart-link">

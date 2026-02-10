@@ -7,12 +7,12 @@ require_once __DIR__ . '/db_connect.php';
  * Αν θες redirect μετά το login:
  * login.php?redirect=cart.php
  */
-$redirect = $_GET['redirect'] ?? 'TEST2.php';
+$redirect = $_GET['redirect'] ?? 'index.php';
 $redirect = trim($redirect);
 
 // Basic safety: μην επιτρέπεις full URLs (open redirect)
 if ($redirect === '' || str_contains($redirect, '://') || str_starts_with($redirect, '//')) {
-    $redirect = 'TEST2.php';
+    $redirect = 'index.php';
 }
 
 $errors = [];
@@ -23,7 +23,7 @@ $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = (string)($_POST['password'] ?? '');
-    $redirectPost = trim($_POST['redirect'] ?? 'TEST2.php');
+    $redirectPost = trim($_POST['redirect'] ?? 'index.php');
 
     if ($redirectPost !== '' && !str_contains($redirectPost, '://') && !str_starts_with($redirectPost, '//')) {
         $redirect = $redirectPost;

@@ -87,7 +87,7 @@ require_once __DIR__ . '/includes/header.php';
         <p>Τα προϊόντα μας συνδυάζουν διαχρονικό σχεδιασμό, ανθεκτικά υλικά και σύγχρονη αισθητική, καλύπτοντας τις απαιτήσεις της καθημερινής χρήσης.</p>
         <p>Μέσα από το ηλεκτρονικό μας κατάστημα, προσφέρουμε ασφαλείς αγορές και εύκολη περιήγηση στις συλλογές μας.</p>
 
-        <a class="intro-cta" href="TEST2.php#best-sellers" target="_blank" rel="noopener">Best Sellers</a>
+        <a class="intro-cta" href="index.php#best-sellers" target="_blank" rel="noopener">Best Sellers</a>
       </div>
     </section>
 

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Test2.js loaded");
+  console.log("main.js loaded");
 
     // =========================
   // 0) MOBILE HAMBURGER (GLOBAL - runs on all pages)

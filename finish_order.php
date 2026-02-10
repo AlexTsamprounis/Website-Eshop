@@ -117,7 +117,7 @@ mysqli_stmt_close($stmt);
 // 8) Flash message
 $_SESSION['flash'] = "✅ Συγχαρητήρια $full_name! Η παραγγελία σας καταχωρήθηκε και θα σταλεί στη διεύθυνση $address.";
 
-// 9) Success UI page (localStorage clear + redirect handled by Test2.js)
+// 9) Success UI page (localStorage clear + redirect handled by main.js)
 $pageTitle = "Order Success | AT.COLLECTION";
 $loadCartJs = false;
 
@@ -136,7 +136,7 @@ require_once __DIR__ . '/includes/header.php';
       <a class="auth-button btn-link" href="order_details.php?id=<?php echo (int)$order_id; ?>">
         Προβολή Παραγγελίας
       </a>
-      <a class="auth-link" href="TEST2.php">Επιστροφή στην αρχική</a>
+      <a class="auth-link" href="index.php">Επιστροφή στην αρχική</a>
     </div>
 
     <p class="order-success-small">

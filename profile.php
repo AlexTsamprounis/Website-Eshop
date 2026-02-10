@@ -107,7 +107,7 @@ require_once __DIR__ . '/includes/header.php';
   <div class="profile-actions">
     <a href="my_orders.php" class="auth-button btn-link">📦 My Orders</a>
     <a href="cart.php" class="auth-button btn-link">🛒 Go to Cart</a>
-    <a href="TEST2.php" class="auth-button btn-link">🏠 Home</a>
+    <a href="index.php" class="auth-button btn-link">🏠 Home</a>
   </div>
 </section>
 
