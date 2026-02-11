@@ -9,10 +9,10 @@ $loadCartJs = false; // δεν χρειάζεται cart.js εδώ
 
 // POST: submit email
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
+    $email = trim($_POST['emailAdress'] ?? '');
 
-    if ($email === '') {
-        $_SESSION['flash'] = 'Παρακαλώ συμπληρώστε ένα email.';
+    if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['flash'] = 'Παρακαλώ συμπληρώστε ένα email με τη σωστή μορφή.';
     } else {
         // Mock / εργασία: δεν στέλνουμε πραγματικό email.
         // "Always success" μήνυμα για να μη γίνεται email enumeration.
@@ -28,7 +28,6 @@ require_once __DIR__ . '/includes/header.php';
 
 <section class="container forgot-wrap">
   <div class="login-card centered">
-    <h1 class="login-title">Ανάκτηση Κωδικού</h1>
 
     <?php if (!empty($_SESSION['flash'])): ?>
       <div class="flash-success flash-success--info">
@@ -36,14 +35,20 @@ require_once __DIR__ . '/includes/header.php';
       </div>
     <?php endif; ?>
 
+
+    <h2 class="form-title" style="color: black; font-weight: bold;">Ανάκτηση Κωδικού</h2>
+
     <form method="post" action="forgot_password.php" class="login-form" autocomplete="on">
       <p class="forgot-hint">
         Εισάγετε το email σας για να ξεκινήσει η διαδικασία επαναφοράς.
       </p>
 
-      <label class="floating">Email</label>
-      <input type="email" name="email" required placeholder="example@mail.com">
 
+      <label class="floating">Email</label>
+      <input type="email" id="emailAdress" name="emailAdress" placeholder="example@mail.com"   
+           value="<?php echo htmlspecialchars($_POST['emailAdress'] ?? ''); ?>" required>
+
+           
       <button type="submit" class="primary">Αποστολή Οδηγιών</button>
     </form>
 
@@ -54,3 +59,4 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
+
