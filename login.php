@@ -73,7 +73,6 @@ require_once __DIR__ . '/includes/header.php';
 
 <section class="container login-wrap">
     <div class="login-card centered">
-        <h1 class="login-title">Login</h1>
 
         <?php if (!empty($errors)): ?>
             <div class="flash-error flash-error--login">
@@ -87,19 +86,27 @@ require_once __DIR__ . '/includes/header.php';
             </div>
         <?php endif; ?>
 
+
+    <h2 class="form-title" style="color: black; font-weight: bold;">Login</h2>
+
+
         <div class="login-links login-links--mb">
             <a href="forgot_password.php">Ξέχασες τον κωδικό σου;</a>
             <a href="register.php">Create an account</a>
         </div>
-
-        <form method="post" action="login.php<?php echo $redirect ? '?redirect=' . urlencode($redirect) : ''; ?>" class="login-form" autocomplete="on">
+        
+        <form method="post" action="login.php<?php echo $redirect ? '?redirect=' . urlencode($redirect) : ''; ?>" class="login-form">
             <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($redirect); ?>">
 
-            <label class="floating">Email</label>
-            <input type="email" name="email" required>
+            <div class="input-group">
+                <input type="email" name="email" id="email" required placeholder=" ">
+                <label for="email">Email</label>
+            </div>
 
-            <label class="floating">Password</label>
-            <input type="password" name="password" required>
+            <div class="input-group">
+                <input type="password" name="password" id="password" required placeholder=" ">
+                <label for="password">Password</label>
+            </div>
 
             <button type="submit" class="primary">Login</button>
         </form>

@@ -1169,7 +1169,10 @@ button.modal-close:hover {
   color: #ff9d00;
   border-bottom: 2px solid #ff9d00;
   padding-bottom: 10px;
-  margin: 0 0 18px;
+  margin: 40px 0 30px; /* 40px κενό πάνω, 30px κάτω */
+  text-align: center;  /* Κεντράρει το κείμενο */
+  letter-spacing: 2px;
+  font-family: sans-serif;
 }
 
 .cart-table-wrapper { overflow-x: auto; }
@@ -1251,6 +1254,7 @@ button.modal-close:hover {
   color: #ffa503;
   margin-right: 12px;
 }
+
 
 /* ========================================================================== */
 /* =============================== CART PAGE END ============================ */
@@ -2290,3 +2294,4 @@ div a.welcome-cta,
 /* ========================================================================== */
 /* =============================== RESPONSIVE END =========================== */
 /* ========================================================================== */
+

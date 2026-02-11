@@ -9,6 +9,8 @@ require_once __DIR__ . '/includes/header.php';
 
 <h2 class="cart-title">ΤΟ ΚΑΛΑΘΙ ΜΟΥ</h2>
 
+
+
 <div class="cart-table-wrapper">
   <table class="cart-table">
     <thead>

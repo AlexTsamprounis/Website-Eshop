@@ -92,7 +92,7 @@ require_once __DIR__ . '/includes/header.php';
 
 <section id="form">
   <form action="register.php" method="POST">
-    <h2 class="form-title">Register</h2>
+    <h2 class="form-title">Register Form</h2>
 
     <?php if (!empty($errors)): ?>
       <div class="form-error form-error--mb">
@@ -132,12 +132,8 @@ require_once __DIR__ . '/includes/header.php';
     <label for="formPassword"><span class="req">*</span> Password:</label>
     <input type="password" id="formPassword" name="formPassword" placeholder="Password" required>
 
-    <label for="formComments">Comments</label>
-    <textarea id="formComments" name="formComments" maxlength="400" placeholder="Add your comments here !!"><?php
-      echo htmlspecialchars($_POST['formComments'] ?? '');
-    ?></textarea>
-    <p class="form-hint form-hint--tight"><b>Your comments must be no more than 400 characters.</b></p>
-    <p class="form-hint form-hint--mb"><b>Remaining characters:</b> <span id="remainingChars">400</span></p>
+
+
 
     <fieldset class="newsletter">
       <legend><b>Please sign up to our newsletter</b></legend>
