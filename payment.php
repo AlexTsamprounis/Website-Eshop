@@ -62,7 +62,7 @@ require_once __DIR__ . '/includes/header.php';
       </div>
 
       <p class="payment-note">
-        * Δεν αποθηκεύουμε στοιχεία κάρτας. (Demo form για την εργασία)
+        This is a development sandbox. No real payments are processed.
       </p>
     </fieldset>
 

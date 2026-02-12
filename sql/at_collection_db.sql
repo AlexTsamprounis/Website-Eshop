@@ -36,10 +36,7 @@ CREATE TABLE `orders` (
   `full_name` varchar(255) DEFAULT NULL,
   `shipping_address` text DEFAULT NULL,
   `city` varchar(100) DEFAULT NULL,
-  `zip_code` varchar(20) DEFAULT NULL,
-  `card_name` varchar(255) DEFAULT NULL,
-  `card_number` varchar(16) DEFAULT NULL,
-  `card_expiry` varchar(10) DEFAULT NULL
+  `zip_code` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
