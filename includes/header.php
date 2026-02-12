@@ -13,7 +13,6 @@ $pageClass  = $pageClass ?? '';     // default: καμία page-specific class
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow">
   <title><?php echo htmlspecialchars($pageTitle); ?></title>
-
   <link rel="stylesheet" href="styles.css">
 
   <script>
