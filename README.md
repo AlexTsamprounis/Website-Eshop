@@ -1,60 +1,98 @@
-🛒 AT.COLLECTION – Dynamic eShop
-ΠΜΣ «Πληροφορική και Εφαρμογές» (MSc ICT) Μάθημα: Ανάπτυξη Εφαρμογών στο Διαδίκτυο (Mscict114)
+🛒 AT.COLLECTION – Dynamic E-Commerce Platform
 
-Πανεπιστήμιο Δυτικής Αττικής (ΠΑΔΑ)
+AT.COLLECTION is a structured PHP & MySQL-based e-commerce web application designed to simulate a real-world online retail system.
 
-📌 Περιγραφή Έργου
-Το παρόν project αφορά την ανάπτυξη ενός δυναμικού ηλεκτρονικού καταστήματος (eShop). Η εφαρμογή καλύπτει πλήρως τις ανάγκες ενός σύγχρονου web app, από τη δυναμική προβολή προϊόντων και τη διαχείριση χρηστών, μέχρι την ασφαλή προσομοίωση της διαδικασίας αγοράς (checkout).
+The platform implements core business processes of a digital store, including user authentication, product management, cart handling, and checkout flow.
 
-👥 Η Ομάδα μας 
-Η ανάπτυξη του έργου βασίστηκε στη στενή συνεργασία των μελών (Agile & Peer Review workflow). Παρόλο που υπήρξε σαφής διαχωρισμός αρμοδιοτήτων, όλα τα μέλη συμμετείχαν ενεργά στη διαδικασία του Continuous Improvement, ελέγχοντας και βελτιστοποιώντας τον κώδικα και την αισθητική της πλατφόρμας σε όλα τα στάδια.
+---
 
-Παναγιώτης Ζώης (@panzois)
+📌 Project Overview
 
-Κύρια Ευθύνη: Frontend Logic & Security Integration (Ανάπτυξη δυναμικής λειτουργικότητας καλαθιού, επικύρωση δεδομένων φορμών και ασφάλεια διεπαφής).
+The application was developed with emphasis on:
 
-Γιώργος Ορέστης Γιαννακόπουλος (@giannako1998)
+• Clear application flow and user journey design  
+• Structured site architecture  
+• Secure interaction between frontend and backend  
+• Modular PHP logic  
+• Proper database integration  
 
-Κύρια Ευθύνη: Backend & Database Infrastructure (Αρχιτεκτονική βάσης δεδομένων MySQL και server-side επεξεργασία δεδομένων).
+The objective was to simulate a production-like e-commerce environment following structured application design and secure development practices.
 
-Αλέξανδρος Τσαμπρούνης (@AlexTsamprounis)
+---
 
-Κύρια Ευθύνη: UI/UX Design & CSS Architecture (Σχεδιασμός διεπαφής χρήστη, αρχιτεκτονική CSS και διασφάλιση responsive διάταξης).
+👥 Team Structure & Roles
 
-🛡️ Ασφάλεια & Τεχνική Υλοποίηση
-Δόθηκε ιδιαίτερη βαρύτητα στην ασφάλεια της εφαρμογής, εφαρμόζοντας τις εξής πρακτικές:
+The project was developed collaboratively using Git version control and iterative improvements.
 
-SQL Injection Prevention: Χρήση Prepared Statements για την ασφαλή αλληλεπίδραση με τη βάση δεδομένων.
+### Panagiotis Zois (@panzois)
 
-Authentication & Sessions: Χρήση PHP Sessions για την προστασία ευαίσθητων σελίδων (Checkout, User Profile).
+Role: Application Flow Design & System Integration
 
-Responsive Web Design (RWD): Πλήρης προσαρμογή της διεπαφής σε όλες τις αναλύσεις οθονών.
+- Designed the end-to-end e-shop flow (user journey, cart lifecycle, checkout process).
+- Structured the application architecture using PHP and MySQL.
+- Implemented cart state management and transactional logic (PHP & JavaScript).
+- Integrated frontend (HTML/CSS/JavaScript) with backend (PHP) ensuring secure data handling.
+- Contributed to database interaction design and secure query implementation (Prepared Statements).
+- Ensured alignment between UI behavior and backend data processing logic.
+- Coordinated Git workflow and module integration.
 
-🛠️ Τεχνολογικό Stack
+### Georgios Orestis Giannakopoulos (@giannako1998)
 
-•	Frontend: HTML5, CSS3, JavaScript.
-•	Backend: PHP 8.x (Modular logic).
-•	Βάση Δεδομένων: MySQL (Relational Schema).
-•	Εργαλεία: Git/GitHub για Version Control, XAMPP περιβάλλον ανάπτυξης.
+Role: Backend & Database Infrastructure
 
+- Designed MySQL relational schema
+- Implemented server-side data processing
+- Managed order persistence and transaction logic
 
-⚙️ Λειτουργικότητες
-Δυναμικό eShop: Άντληση και προβολή προϊόντων (εικόνα, περιγραφή, τιμή) σε πραγματικό χρόνο από τη βάση.
+### Alexandros Tsamprounis (@AlexTsamprounis)
 
-Σύστημα Καλαθιού: Πλήρης διαχείριση (προσθήκη, αλλαγή ποσότητας, αφαίρεση) με δυναμικό υπολογισμό συνόλων.
+Role: UI/UX & CSS Architecture
 
-Authentication: Σύστημα εγγραφής (Register), σύνδεσης (Login) και αποσύνδεσης (Logout).
+- Designed user interface and visual consistency
+- Implemented responsive layout
+- Structured CSS architecture
 
-Checkout Simulation: Προσομοίωση ολοκλήρωσης παραγγελίας και καταχώρηση στοιχείων στη βάση δεδομένων.
+---
 
-🚀 Οδηγίες Εκτέλεσης (Local)
+🛡️ Security & Technical Implementation
 
-Εγκαταστήστε το XAMPP.
+The system was implemented following secure development practices:
 
-Τοποθετήστε τον φάκελο του project στη διαδρομή /htdocs/.
+• SQL Injection Prevention using Prepared Statements  
+• PHP Session Management for protected routes  
+• Input Validation mechanisms  
+• Responsive Web Design (RWD)  
 
-Δημιουργήστε μια νέα βάση δεδομένων (π.χ. at_collection_db).
+---
 
-Κάντε Import το αρχείο SQL (βρίσκεται στον φάκελο sql/).
+🛠️ Technology Stack
 
-Πλοηγηθείτε στο: http://localhost/Website-Eshop/index.php.
+Frontend: HTML5, CSS3, JavaScript  
+Backend: PHP 8.x (Modular structure)  
+Database: MySQL (Relational schema)  
+Environment: XAMPP (Local development)  
+Version Control: Git / GitHub  
+
+---
+
+⚙️ Core Functionalities
+
+• Dynamic product listing (real-time database retrieval)  
+• Cart management (add / remove / update quantity)  
+• Authentication system (Register / Login / Logout)  
+• User profile & order history  
+• Checkout simulation with order storage  
+
+---
+
+🚀 Local Setup
+
+1. Install XAMPP  
+2. Place project inside `/htdocs/`  
+3. Create database (e.g., `at_collection_db`)  
+4. Import SQL file from `/sql/`  
+5. Run via: http://localhost/Website-Eshop/index.php  
+
+---
+
+Originally developed within the context of MSc ICT studies – University of West Attica.
